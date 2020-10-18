@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include <Adafruit_NeoPixel.h>
 #include <Adafruit_GFX.h>
+#include <Adafruit_NeoPixel.h>
 #include <Adafruit_SSD1306.h>
 #include <SparkFun_SCD30_Arduino_Library.h>
 #include <SPI.h>
