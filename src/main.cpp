@@ -21,12 +21,12 @@ const uint16_t maxValue = 3200;
 const uint16_t numLeds = 16;
 const int pin = 15;
 
-#define OLED_RESET -1
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+const int8_t oledReset = -1;
+const uint8_t screenWidth = 128; // OLED display width, in pixels
+const uint8_t screenHeight = 64; // OLED display height, in pixels
 
 CRGB leds[numLeds];
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+Adafruit_SSD1306 display(screenWidth, screenHeight, &Wire, oledReset);
 
 void setup()
 {
