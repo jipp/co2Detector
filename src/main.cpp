@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include <iostream>
+//#include <iostream>
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -19,7 +19,7 @@ const uint16_t limit1 = 1000;
 const uint16_t limit2 = 2000;
 const uint16_t maxValue = 3200;
 const uint16_t numLeds = 16;
-const int pin = 15;
+const int pin = 3;
 
 const int8_t oledReset = -1;
 const uint8_t screenWidth = 128; // OLED display width, in pixels
@@ -42,7 +42,7 @@ void setup()
 
   if (!scd30.begin())
   {
-    std::cout << "Air sensor not detected. Please check wiring. Freezing..." << std::endl;
+    Serial.println( "Air sensor not detected. Please check wiring. Freezing...");
     while (true)
     {
       ;
@@ -88,9 +88,12 @@ void loop()
 
     FastLED.show();
 
-    std::cout << "co2(ppm): " << co2;
-    std::cout << "; temp(C): " << scd30.getTemperature();
-    std::cout << "; humidity(%): " << scd30.getHumidity() << std::endl;
+    Serial.print("co2(ppm): ");
+    Serial.print(co2);
+    Serial.print("; temp(C): ");
+    Serial.print(scd30.getTemperature());
+    Serial.print("; humidity(%): ");
+    Serial.println(scd30.getHumidity());
 
     display.clearDisplay();
     display.setCursor(0, 0);
