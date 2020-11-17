@@ -19,7 +19,7 @@ const uint16_t limit1 = 1000;
 const uint16_t limit2 = 2000;
 const uint16_t maxValue = 3200;
 const uint16_t numLeds = 16;
-const int pin = 3;
+const int pin = 13;
 
 const int8_t oledReset = -1;
 const uint8_t screenWidth = 128; // OLED display width, in pixels
@@ -31,6 +31,10 @@ Adafruit_SSD1306 display(screenWidth, screenHeight, &Wire, oledReset);
 void setup()
 {
   Serial.begin(SPEED);
+
+  while (!Serial)
+    ;
+
   Wire.begin();
   FastLED.addLeds<WS2812, pin, GRB>(leds, numLeds);
   FastLED.setBrightness(32);
@@ -42,7 +46,7 @@ void setup()
 
   if (!scd30.begin())
   {
-    Serial.println( "Air sensor not detected. Please check wiring. Freezing...");
+    Serial.println("Air sensor not detected. Please check wiring. Freezing...");
     while (true)
     {
       ;
