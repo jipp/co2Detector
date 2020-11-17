@@ -1,4 +1,4 @@
-$fn = 180;
+//$fn = 180;
 
 plateWidth = 80;
 plateLength = 120;
@@ -9,10 +9,13 @@ ledLength = 6;
 
 module plate()
 {
+    h = 8;
+    
     difference()
     {
-        cube([plateWidth, plateLength, plateHeight+7]);
-        translate([1, 1, plateHeight]) cube([plateWidth-2, plateLength-2, 7]);
+        cube([plateWidth, plateLength, plateHeight+h]);
+        translate([1, 1, plateHeight]) cube([plateWidth-2, plateLength-2, h]);
+        translate([plateWidth-2, 15, 5]) cube([2, 18.5, 4]);
     }
 }
 
@@ -71,11 +74,11 @@ module displayHolder()
 
 module controllHolder()
 {
-    w = 18.5;
-    l = 44;
+    w = 44;
+    l = 18.5;
     height = 4;
     
-    translate([plateWidth-w-2-2, 2, plateHeight]) difference()
+    translate([plateWidth-w-2, 15, plateHeight]) difference()
     {
         cube([w+2, l+2, height]);
         translate([1, 1, 0]) cube([w, l, height]);
