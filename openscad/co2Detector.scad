@@ -1,4 +1,4 @@
-//$fn = 180;
+$fn = 180;
 
 plateWidth = 80;
 plateLength = 120;
@@ -6,6 +6,10 @@ plateHeight = 1;
 
 circleRadius = 30;
 ledLength = 6;
+
+
+controllerLength = 18.5; // Nano
+
 
 module plate()
 {
@@ -15,7 +19,7 @@ module plate()
     {
         cube([plateWidth, plateLength, plateHeight+h]);
         translate([1, 1, plateHeight]) cube([plateWidth-2, plateLength-2, h]);
-        translate([plateWidth-2, 15, 5]) cube([2, 18.5, 4]);
+        translate([plateWidth-2, 11, 5]) cube([2, controllerLength, 4]);
     }
 }
 
@@ -49,9 +53,10 @@ module ledHolder()
 
     translate([plateWidth/2, plateLength-plateWidth/2, plateHeight]) difference()
     {
-        cylinder(h = height, r = circleRadius+ledLength/2+2.25);
-        cylinder(h = height, r = circleRadius+ledLength/2+1.25);
+        cylinder(h = height, r = circleRadius+ledLength/2+2.5);
+        cylinder(h = height, r = circleRadius+ledLength/2+1.5);
     }
+
     translate([plateWidth/2, plateLength-plateWidth/2, plateHeight]) difference()
     {
         cylinder(h = height, r = circleRadius-ledLength/2-0.75);
@@ -72,13 +77,13 @@ module displayHolder()
     }
 }
 
-module controllHolder()
+module controllHolderNano()
 {
     w = 44;
-    l = 18.5;
+    l = controllerLength;
     height = 4;
     
-    translate([plateWidth-w-2, 15, plateHeight]) difference()
+    translate([plateWidth-w-2, 10, plateHeight]) difference()
     {
         cube([w+2, l+2, height]);
         translate([1, 1, 0]) cube([w, l, height]);
@@ -96,6 +101,11 @@ module sensorHolder()
         translate([5-1, 5-1, plateHeight]) cube([w+2, l+2, height]);
         translate([5, 5, plateHeight]) cube([w, l, height]);
     }
+    
+    translate([5, 5, 0]) cube([w, 0.25, plateHeight]);
+    translate([5, 5+l-0.25, 0]) cube([w, 0.25, plateHeight]);
+    translate([5, 5, 0]) cube([0.25, l, plateHeight]);
+    translate([5+w-0.25, 5, 0]) cube([0.25, l, plateHeight]);
 }
 
 
@@ -109,5 +119,5 @@ difference()
 
 ledHolder();
 displayHolder();
-controllHolder();
+controllHolderNano();
 sensorHolder();
