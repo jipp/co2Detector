@@ -19,7 +19,7 @@ const uint16_t limit1 = 1000;
 const uint16_t limit2 = 2000;
 const uint16_t maxValue = 3200;
 const uint16_t numLeds = 16;
-const int pin = 13;
+const int dataPin = 13;
 
 const int8_t oledReset = -1;
 const uint8_t screenWidth = 128; // OLED display width, in pixels
@@ -36,8 +36,10 @@ void setup()
     ;
 
   Wire.begin();
-  FastLED.addLeds<WS2812, pin, GRB>(leds, numLeds);
+
+  FastLED.addLeds<WS2812, dataPin, GRB>(leds, numLeds);
   FastLED.setBrightness(32);
+
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
   display.display();
@@ -91,6 +93,7 @@ void loop()
     }
 
     FastLED.show();
+    FastLED.delay(10);
 
     Serial.print("co2(ppm): ");
     Serial.print(co2);
