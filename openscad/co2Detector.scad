@@ -1,4 +1,4 @@
-$fn = 180;
+//$fn = 180;
 
 plateWidth = 80;
 plateLength = 120;
@@ -19,7 +19,7 @@ module plate()
     {
         cube([plateWidth, plateLength, plateHeight+h]);
         translate([1, 1, plateHeight]) cube([plateWidth-2, plateLength-2, h]);
-        translate([plateWidth-2, 11, 5]) cube([2, controllerLength, 4]);
+        translate([plateWidth-2, 5, 5]) cube([2, controllerLength, 4]);
     }
 }
 
@@ -51,17 +51,33 @@ module ledHolder()
 {
     height = 4;
 
-    translate([plateWidth/2, plateLength-plateWidth/2, plateHeight]) difference()
+    translate([plateWidth/2, plateLength-plateWidth/2, plateHeight])
     {
-        cylinder(h = height, r = circleRadius+ledLength/2+2.5);
-        cylinder(h = height, r = circleRadius+ledLength/2+1.5);
-    }
+        difference()
+        {
+            cylinder(h = height, r = circleRadius+ledLength/2+2.5);
+            cylinder(h = height, r = circleRadius+ledLength/2+1.5);
+        }
 
-    translate([plateWidth/2, plateLength-plateWidth/2, plateHeight]) difference()
-    {
-        cylinder(h = height, r = circleRadius-ledLength/2-0.75);
-        cylinder(h = height, r = circleRadius-ledLength/2-1.75);
-    }
+        difference()
+        {
+            cylinder(h = height, r = circleRadius-ledLength/2-0.75);
+            cylinder(h = height, r = circleRadius-ledLength/2-1.75);
+        }
+        
+        translate([0, 0, height-0.25]) difference()
+        {
+            cylinder(h = 0.25, r = circleRadius+ledLength/2+1.5);
+            cylinder(h = 0.25, r = circleRadius+ledLength/2+1.25);
+        }
+
+        translate([0, 0, height-0.25]) difference()
+        {
+            cylinder(h = 0.25, r = circleRadius-ledLength/2-0.5);
+            cylinder(h = 0.25, r = circleRadius-ledLength/2-0.75);
+        }
+    }    
+    
 }
 
 module displayHolder()
@@ -70,11 +86,18 @@ module displayHolder()
     l = 28;
     height = 4;
 
-    difference()
+    translate([plateWidth/2, plateLength-plateWidth/2-2, plateHeight+height/2]) difference()
     {
-        translate([plateWidth/2, plateLength-plateWidth/2-2, plateHeight/2+height/2]) cube([w+2, l+2, height], true);
-        translate([plateWidth/2, plateLength-plateWidth/2-2, plateHeight/2+height/2]) cube([w, l, height], true);
+        cube([w+2, l+2, height], true);
+        cube([w, l, height], true);
     }
+    
+    translate([plateWidth/2, plateLength-plateWidth/2-2, plateHeight+height-0.25/2]) difference()
+    {
+        cube([w, l, 0.25], true);
+        cube([w-0.5, l-0.5, 0.25], true);
+    }
+
 }
 
 module controllHolderNano()
@@ -82,12 +105,21 @@ module controllHolderNano()
     w = 44;
     l = controllerLength;
     height = 4;
-    
-    translate([plateWidth-w-2, 10, plateHeight]) difference()
+    xPos = plateWidth-w-2;
+    yPos = 4;
+
+    translate([w/2+1+xPos, l/2+1+yPos, plateHeight+height/2]) difference()
     {
-        cube([w+2, l+2, height]);
-        translate([1, 1, 0]) cube([w, l, height]);
+        cube([w+2, l+2, height], true);
+        cube([w, l, height], true);
     }
+    
+    translate([w/2+1+xPos, l/2+1+yPos, plateHeight+height-0.25/2]) difference()
+    {
+        cube([w, l, 0.25], true);
+        cube([w-0.5, l-0.5, 0.25], true);
+    }
+
 }
 
 module sensorHolder()
@@ -95,17 +127,26 @@ module sensorHolder()
     w = 23.5;
     l = 35.5;
     height = 4;
+    xPos = 4;
+    yPos = 4;
 
-    difference()
+    translate([w/2+1+xPos, l/2+1+yPos, plateHeight+height/2]) difference()
     {
-        translate([5-1, 5-1, plateHeight]) cube([w+2, l+2, height]);
-        translate([5, 5, plateHeight]) cube([w, l, height]);
+        cube([w+2, l+2, height], true);
+        cube([w, l, height], true);
     }
     
-    translate([5, 5, 0]) cube([w, 0.25, plateHeight]);
-    translate([5, 5+l-0.25, 0]) cube([w, 0.25, plateHeight]);
-    translate([5, 5, 0]) cube([0.25, l, plateHeight]);
-    translate([5+w-0.25, 5, 0]) cube([0.25, l, plateHeight]);
+    translate([w/2+1+xPos, l/2+1+yPos, 0.25/2]) difference()
+    {
+        cube([w, l, 0.25], true);
+        cube([w-0.5, l-0.5, 0.25], true);
+    }
+
+    translate([w/2+1+xPos, l/2+1+yPos, plateHeight+height-0.25/2]) difference()
+    {
+        cube([w, l, 0.25], true);
+        cube([w-0.5, l-0.5, 0.25],true);
+    }
 }
 
 
